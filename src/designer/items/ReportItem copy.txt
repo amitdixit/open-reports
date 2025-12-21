@@ -1,0 +1,43 @@
+import React from "react";
+import type { ReportItemModel } from "../state/reportModel";
+
+/**
+ * ReportItem
+ * ----------------
+ * Phase 4 – item selection (click + visual only).
+ */
+
+const ReportItem = ({
+    item,
+    isSelected,
+    onSelect,
+}: {
+    item: ReportItemModel;
+    isSelected: boolean;
+    onSelect: (itemId: string) => void;
+}) => {
+    return (
+        <div
+            onClick={(e) => {
+                e.stopPropagation();
+                onSelect(item.id);
+            }}
+            className={
+                "absolute text-xs flex items-center justify-center cursor-pointer " +
+                (isSelected
+                    ? "border-2 border-blue-600 bg-blue-50"
+                    : "border border-gray-400 bg-white")
+            }
+            style={{
+                left: item.x,
+                top: item.y,
+                width: item.width,
+                height: item.height,
+            }}
+        >
+            {item.type}
+        </div>
+    );
+};
+
+export default ReportItem;
