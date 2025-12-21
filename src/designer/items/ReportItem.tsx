@@ -4,11 +4,6 @@ import TextBoxContent from "./TextBoxContent";
 
 type ResizeDir = "nw" | "ne" | "sw" | "se";
 
-/**
- * ReportItem
- * ----------------
- * Phase 8.1 – Resize interaction (preview-only).
- */
 const DRAG_THRESHOLD = 3;
 
 const ReportItem = ({
@@ -228,7 +223,10 @@ const ReportItem = ({
       )}
 
       {item.type === "Rectangle" && (
-        <div className="w-full h-full border border-dashed border-gray-400 pointer-events-none" />
+        <div
+          className="w-full h-full border border-dashed border-gray-400 pointer-events-none"
+          style={{ zIndex: 0 }}
+        />
       )}
 
       {item.type === "Line" && (

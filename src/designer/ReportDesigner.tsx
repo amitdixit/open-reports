@@ -14,15 +14,9 @@ import {
   type ReportItemType,
 } from "./state/reportModel";
 
-/* ---------------- Constants ---------------- */
-
 const MAX_HISTORY = 50;
 
-/* ---------------- ReportDesigner ---------------- */
-
 const ReportDesigner = () => {
-  /* ---------------- Report (static for now) ---------------- */
-
   const [report] = useState<ReportModel>({
     id: "report-1",
     page: {
@@ -88,8 +82,6 @@ const ReportDesigner = () => {
     setSelectedItemIds([id]);
   };
 
-  /* ---------------- Initial bands ---------------- */
-
   const createInitialBands = (): BandModel[] => {
     const detailItems: ReportItemModel[] = [
       {
@@ -154,7 +146,6 @@ const ReportDesigner = () => {
 
     commit(next);
   };
-  /* ---------------- Undo / Redo ---------------- */
 
   const [past, setPast] = useState<BandModel[][]>([]);
   const [present, setPresent] = useState<BandModel[]>(createInitialBands);
@@ -187,12 +178,8 @@ const ReportDesigner = () => {
     });
   };
 
-  /* ---------------- Selection ---------------- */
-
   const [selectedBandId, setSelectedBandId] = useState<string | null>(null);
   const [selectedItemIds, setSelectedItemIds] = useState<string[]>([]);
-
-  /* ---------------- Helpers ---------------- */
 
   const selectedItem =
     selectedItemIds.length === 1
@@ -200,8 +187,6 @@ const ReportDesigner = () => {
           .flatMap((b) => b.items)
           .find((i) => i.id === selectedItemIds[0]) || null
       : null;
-
-  /* ---------------- Delete ---------------- */
 
   const deleteSelectedItems = () => {
     if (selectedItemIds.length === 0) return;
@@ -214,8 +199,6 @@ const ReportDesigner = () => {
     commit(next);
     setSelectedItemIds([]);
   };
-
-  /* ---------------- Geometry commit helpers ---------------- */
 
   const commitItemGeometry = (
     itemId: string,
@@ -241,8 +224,6 @@ const ReportDesigner = () => {
   ) => {
     commitItemGeometry(itemId, next);
   };
-
-  /* ---------------- Alignment ---------------- */
 
   const alignSelectedItem = (
     mode: "left" | "center" | "right" | "top" | "middle" | "bottom",
@@ -421,7 +402,6 @@ const ReportDesigner = () => {
   };
 
   /* ---------------- Keyboard shortcuts ---------------- */
-
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (

@@ -1,10 +1,3 @@
-/**
- * LeftPalette
- * ----------------
- * Presentational palette with icons.
- * No drag/drop yet.
- */
-
 import React from "react";
 import type { ReportItemType } from "../state/reportModel";
 
