@@ -15,6 +15,9 @@ const TextBoxContent = ({
   const ref = useRef<HTMLDivElement>(null);
   const fontSize = item.props?.fontSize ?? 12;
   const color = item.props?.color ?? "#000000";
+  const fontWeight = item.props?.fontWeight ?? "normal";
+  const fontStyle = item.props?.fontStyle ?? "normal";
+  const textDecoration = item.props?.textDecoration ?? "none";
 
   // Sync external updates (undo / redo)
   useEffect(() => {
@@ -36,7 +39,7 @@ const TextBoxContent = ({
       className={`w-full h-full px-1 outline-none overflow-hidden ${
         editing ? "cursor-text" : "cursor-move"
       }`}
-      style={{ fontSize, color }}
+      style={{ fontSize, color, fontWeight, fontStyle, textDecoration }}
       onDoubleClick={() => {
         if (isSelected) setEditing(true);
       }}

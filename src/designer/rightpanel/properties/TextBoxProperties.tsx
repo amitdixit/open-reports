@@ -49,6 +49,56 @@ const TextBoxProperties = ({
           })
         }
       />
+
+      <div className="flex items-center gap-4">
+        <label className="flex items-center gap-1 text-xs">
+          <input
+            type="checkbox"
+            checked={props.fontWeight === "bold"}
+            onChange={(e) =>
+              onCommit(item.id, {
+                props: {
+                  ...props,
+                  fontWeight: e.target.checked ? "bold" : "normal",
+                },
+              })
+            }
+          />
+          Bold
+        </label>
+
+        <label className="flex items-center gap-1 text-xs">
+          <input
+            type="checkbox"
+            checked={props.fontStyle === "italic"}
+            onChange={(e) =>
+              onCommit(item.id, {
+                props: {
+                  ...props,
+                  fontStyle: e.target.checked ? "italic" : "normal",
+                },
+              })
+            }
+          />
+          Italic
+        </label>
+
+        <label className="flex items-center gap-1 text-xs">
+          <input
+            type="checkbox"
+            checked={props.textDecoration === "underline"}
+            onChange={(e) =>
+              onCommit(item.id, {
+                props: {
+                  ...props,
+                  textDecoration: e.target.checked ? "underline" : "none",
+                },
+              })
+            }
+          />
+          Underline
+        </label>
+      </div>
     </div>
   );
 };
