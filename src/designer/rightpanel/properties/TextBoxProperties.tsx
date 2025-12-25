@@ -24,6 +24,27 @@ const TextBoxProperties = ({
           })
         }
       />
+      <div className="flex items-center gap-2">
+        <label className="text-xs text-gray-500 w-20">Font</label>
+        <select
+          className="flex-1 px-2 py-1 text-sm border rounded"
+          value={props.fontFamily ?? "Arial"}
+          onChange={(e) =>
+            onCommit(item.id, {
+              props: {
+                ...props,
+                fontFamily: e.target.value,
+              },
+            })
+          }
+        >
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Courier New">Courier New</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Verdana">Verdana</option>
+        </select>
+      </div>
 
       {/* Font Size */}
       <Input

@@ -20,6 +20,11 @@ const TextBoxContent = ({
   const textDecoration = item.props?.textDecoration ?? "none";
   const textAlign = item.props?.textAlign ?? "left";
   const verticalAlign = item.props?.verticalAlign ?? "top";
+  const backgroundColor = item.props?.backgroundColor ?? "transparent";
+  const borderColor = item.props?.borderColor ?? "transparent";
+  const borderWidth = item.props?.borderWidth ?? 0;
+  const borderStyle = item.props?.borderStyle ?? "solid";
+  const fontFamily = item.props?.fontFamily ?? "Arial";
 
   // Sync external updates (undo / redo)
   useEffect(() => {
@@ -42,6 +47,7 @@ const TextBoxContent = ({
         editing ? "cursor-text" : "cursor-move"
       }`}
       style={{
+        fontFamily,
         fontSize,
         color,
         fontWeight,
@@ -54,6 +60,10 @@ const TextBoxContent = ({
             : verticalAlign === "middle"
               ? "center"
               : "flex-end",
+        backgroundColor,
+        borderColor,
+        borderWidth,
+        borderStyle,
       }}
       onDoubleClick={() => {
         if (isSelected) setEditing(true);
