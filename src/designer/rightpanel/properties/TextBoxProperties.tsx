@@ -99,6 +99,44 @@ const TextBoxProperties = ({
           Underline
         </label>
       </div>
+      <div className="flex items-center gap-2">
+        <label className="text-xs text-gray-500 w-20">Align</label>
+        <select
+          className="flex-1 px-2 py-1 text-sm border rounded"
+          value={props.textAlign ?? "left"}
+          onChange={(e) =>
+            onCommit(item.id, {
+              props: {
+                ...props,
+                textAlign: e.target.value as "left" | "center" | "right",
+              },
+            })
+          }
+        >
+          <option value="left">Left</option>
+          <option value="center">Center</option>
+          <option value="right">Right</option>
+        </select>
+      </div>
+      <div className="flex items-center gap-2">
+        <label className="text-xs text-gray-500 w-20">V Align</label>
+        <select
+          className="flex-1 px-2 py-1 text-sm border rounded"
+          value={props.verticalAlign ?? "top"}
+          onChange={(e) =>
+            onCommit(item.id, {
+              props: {
+                ...props,
+                verticalAlign: e.target.value as "top" | "middle" | "bottom",
+              },
+            })
+          }
+        >
+          <option value="top">Top</option>
+          <option value="middle">Middle</option>
+          <option value="bottom">Bottom</option>
+        </select>
+      </div>
     </div>
   );
 };

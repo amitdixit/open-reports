@@ -18,6 +18,8 @@ const TextBoxContent = ({
   const fontWeight = item.props?.fontWeight ?? "normal";
   const fontStyle = item.props?.fontStyle ?? "normal";
   const textDecoration = item.props?.textDecoration ?? "none";
+  const textAlign = item.props?.textAlign ?? "left";
+  const verticalAlign = item.props?.verticalAlign ?? "top";
 
   // Sync external updates (undo / redo)
   useEffect(() => {
@@ -36,10 +38,23 @@ const TextBoxContent = ({
       ref={ref}
       contentEditable={editing}
       suppressContentEditableWarning
-      className={`w-full h-full px-1 outline-none overflow-hidden ${
+      className={`w-full h-full px-1 outline-none overflow-hidden flex flex-col ${
         editing ? "cursor-text" : "cursor-move"
       }`}
-      style={{ fontSize, color, fontWeight, fontStyle, textDecoration }}
+      style={{
+        fontSize,
+        color,
+        fontWeight,
+        fontStyle,
+        textDecoration,
+        textAlign,
+        justifyContent:
+          verticalAlign === "top"
+            ? "flex-start"
+            : verticalAlign === "middle"
+              ? "center"
+              : "flex-end",
+      }}
       onDoubleClick={() => {
         if (isSelected) setEditing(true);
       }}
