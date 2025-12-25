@@ -81,6 +81,15 @@ const RightPanel = ({
       case "TextBox":
         return (
           <>
+            <PropertyGroup title="Position">
+              <CommonProperties
+                item={selectedItem}
+                local={local}
+                setLocal={setLocal}
+                onCommit={onCommit}
+                onKeyDown={onKeyDown}
+              />
+            </PropertyGroup>
             <PropertyGroup title="Basic Settings" defaultOpen>
               <TextBoxProperties item={selectedItem} onCommit={onCommit} />
             </PropertyGroup>
@@ -88,28 +97,13 @@ const RightPanel = ({
             <PropertyGroup title="Appearance">
               <AppearanceProperties item={selectedItem} onCommit={onCommit} />
             </PropertyGroup>
-
-            <PropertyGroup title="Position">
-              <CommonProperties
-                item={selectedItem}
-                local={local}
-                setLocal={setLocal}
-                onCommit={onCommit}
-                onKeyDown={onKeyDown}
-              />
-            </PropertyGroup>
           </>
         );
 
       case "Rectangle":
-      case "Image":
       case "Line":
         return (
           <>
-            <PropertyGroup title="Appearance" defaultOpen>
-              <AppearanceProperties item={selectedItem} onCommit={onCommit} />
-            </PropertyGroup>
-
             <PropertyGroup title="Position">
               <CommonProperties
                 item={selectedItem}
@@ -118,6 +112,9 @@ const RightPanel = ({
                 onCommit={onCommit}
                 onKeyDown={onKeyDown}
               />
+            </PropertyGroup>
+            <PropertyGroup title="Appearance" defaultOpen>
+              <AppearanceProperties item={selectedItem} onCommit={onCommit} />
             </PropertyGroup>
           </>
         );
@@ -152,6 +149,27 @@ const RightPanel = ({
                 onCommit={onCommit}
                 onKeyDown={onKeyDown}
               />
+            </PropertyGroup>
+          </>
+        );
+      case "Image":
+        return (
+          <>
+            <PropertyGroup title="Position">
+              <CommonProperties
+                item={selectedItem}
+                local={local}
+                setLocal={setLocal}
+                onCommit={onCommit}
+                onKeyDown={onKeyDown}
+              />
+            </PropertyGroup>
+            <PropertyGroup title="Image">
+              <ImageProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Appearance">
+              <AppearanceProperties item={selectedItem} onCommit={onCommit} />
             </PropertyGroup>
           </>
         );

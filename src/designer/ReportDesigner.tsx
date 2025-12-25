@@ -85,38 +85,38 @@ const ReportDesigner = () => {
   };
 
   const createInitialBands = (): BandModel[] => {
-    const detailItems: ReportItemModel[] = [
-      {
-        id: "item-1",
-        type: "TextBox",
-        x: 40,
-        y: 20,
-        width: 200,
-        height: 40,
-        props: { text: "Sample Text" },
-        name: "Sample Text",
-      },
-      {
-        id: "item-2",
-        type: "Rectangle",
-        x: 40,
-        y: 80,
-        width: 300,
-        height: 60,
-        props: {},
-        name: "Rectangle 1",
-      },
-      {
-        id: "item-3",
-        type: "Table",
-        x: 350,
-        y: 40,
-        width: 300,
-        height: 120,
-        props: { rows: 3, columns: 3 },
-        name: "Table Test",
-      },
-    ];
+    // const detailItems: ReportItemModel[] = [
+    //   {
+    //     id: "item-1",
+    //     type: "TextBox",
+    //     x: 40,
+    //     y: 20,
+    //     width: 200,
+    //     height: 40,
+    //     props: { text: "Sample Text" },
+    //     name: "Sample Text",
+    //   },
+    //   {
+    //     id: "item-2",
+    //     type: "Rectangle",
+    //     x: 40,
+    //     y: 80,
+    //     width: 300,
+    //     height: 60,
+    //     props: {},
+    //     name: "Rectangle 1",
+    //   },
+    //   {
+    //     id: "item-3",
+    //     type: "Table",
+    //     x: 350,
+    //     y: 40,
+    //     width: 300,
+    //     height: 120,
+    //     props: { rows: 3, columns: 3 },
+    //     name: "Table Test",
+    //   },
+    // ];
 
     const baseBands: {
       id: string;
@@ -125,7 +125,7 @@ const ReportDesigner = () => {
     }[] = [
       { id: "rh", type: "ReportHeader", items: [] },
       { id: "ph", type: "PageHeader", items: [] },
-      { id: "dt", type: "Detail", items: detailItems },
+      { id: "dt", type: "Detail", items: [] },
       { id: "pf", type: "PageFooter", items: [] },
       { id: "rf", type: "ReportFooter", items: [] },
     ];
