@@ -108,13 +108,13 @@ const ReportDesigner = () => {
       },
       {
         id: "item-3",
-        type: "TextBox",
-        x: 300,
-        y: 160,
-        width: 180,
-        height: 40,
-        props: { text: "Another Text" },
-        name: "Another Text",
+        type: "Table",
+        x: 350,
+        y: 40,
+        width: 300,
+        height: 120,
+        props: { rows: 3, columns: 3 },
+        name: "Table Test",
       },
     ];
 
