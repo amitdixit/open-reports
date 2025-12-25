@@ -11,6 +11,7 @@ const LineContent = ({ item }: { item: ReportItemModel }) => {
         style={{
           height: strokeWidth,
           backgroundColor: color,
+          borderStyle: item.props?.borderStyle ?? "solid",
         }}
       />
     </div>

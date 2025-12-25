@@ -8,6 +8,7 @@ import RectangleProperties from "./properties/RectangleProperties";
 import ImageProperties from "./properties/ImageProperties";
 import TableProperties from "./properties/TableProperties";
 import LineProperties from "./properties/LineProperties";
+import AppearanceProperties from "./properties/AppearanceProperties";
 
 const GRID_SIZE = 8;
 const MIN_WIDTH = 24;
@@ -114,8 +115,7 @@ const RightPanel = ({
               <div className="text-gray-500">No item selected</div>
             ) : (
               <>
-                <h3 className="font-semibold mb-3">Properties</h3>
-
+                <h3 className="font-semibold mb-3">Layout</h3>
                 <CommonProperties
                   item={selectedItem}
                   local={local}
@@ -124,6 +124,12 @@ const RightPanel = ({
                   onKeyDown={onKeyDown}
                 />
                 <div className="pt-4 border-t">{renderTypeProperties()}</div>
+                <div className="pt-4 border-t">
+                  <AppearanceProperties
+                    item={selectedItem}
+                    onCommit={onCommit}
+                  />
+                </div>
               </>
             )}
           </>
