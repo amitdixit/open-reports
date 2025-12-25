@@ -1,6 +1,11 @@
 import React, { useRef } from "react";
 import { type ReportItemModel } from "../state/reportModel";
-import TextBoxContent from "./TextBoxContent";
+import TextBoxContent from "./contents/TextBoxContent";
+import RectangleContent from "./contents/RectangleContent";
+import LineContent from "./contents/LineContent";
+import ImageContent from "./contents/ImageContent";
+import TableContent from "./contents/TableContent";
+import ChartContent from "./contents/ChartContent";
 
 type ResizeDir = "nw" | "ne" | "sw" | "se";
 
@@ -17,6 +22,8 @@ const ReportItem = ({
   onDragCancel,
   onGroupResizeStart,
   onItemTextCommit,
+  hasChildren,
+  isContained,
 }: {
   item: ReportItemModel;
   isSelected: boolean;
@@ -34,6 +41,8 @@ const ReportItem = ({
   onDragCancel?: () => void;
   onGroupResizeStart?: (itemId: string, dir: ResizeDir) => void;
   onItemTextCommit: (itemId: string, text: string) => void;
+  hasChildren?: boolean;
+  isContained?: boolean;
 }) => {
   // const dragStartRef = useRef<{ x: number; y: number } | null>(null);
   const dragStartRef = useRef<{
@@ -197,14 +206,19 @@ const ReportItem = ({
     }
   };
 
+  // const hasChildren =
+  //   item.type === "Rectangle" && Boolean(item.props?.hasChildren);
+
   return (
     <div
       onMouseDown={onMouseDown}
       className={
-        "absolute text-xs flex items-center justify-center select-none  cursor-move " +
+        "absolute text-xs flex items-center justify-center select-none cursor-move " +
         (isSelected
           ? "border-2 border-blue-600 bg-blue-50"
-          : "border border-gray-400 bg-white")
+          : isContained
+            ? "border border-gray-300 bg-blue-50/10"
+            : "border border-gray-400 bg-white")
       }
       style={{
         left: item.x,
@@ -221,45 +235,17 @@ const ReportItem = ({
           onTextCommit={onItemTextCommit}
         />
       )}
-
       {item.type === "Rectangle" && (
-        <div
-          className="w-full h-full border border-dashed border-gray-400 pointer-events-none"
-          style={{ zIndex: 0 }}
-        />
+        <RectangleContent item={item} hasChildren={hasChildren} />
       )}
 
-      {item.type === "Line" && (
-        <div className="w-full h-full flex items-center">
-          <div className="w-full h-px bg-gray-600" />
-        </div>
-      )}
+      {item.type === "Line" && <LineContent />}
 
-      {item.type === "Image" && (
-        <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-500 text-xs">
-          Image
-        </div>
-      )}
+      {item.type === "Image" && <ImageContent />}
 
-      {item.type === "Table" && (
-        <div className="w-full h-full border border-gray-400 bg-white text-[10px] text-gray-600 grid grid-cols-3 grid-rows-3">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div
-              key={i}
-              className="border border-gray-200 flex items-center justify-center"
-            >
-              Cell
-            </div>
-          ))}
-        </div>
-      )}
+      {item.type === "Table" && <TableContent />}
 
-      {item.type?.includes("Chart") && (
-        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 text-gray-600 text-xs">
-          <div className="w-6 h-6 border border-gray-400 mb-1" />
-          Chart
-        </div>
-      )}
+      {item.type?.includes("Chart") && <ChartContent label={item.type} />}
 
       {/* Resize handles */}
       {isSelected && !isGroupResizing && (

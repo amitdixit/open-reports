@@ -41,6 +41,15 @@ const Band = ({
   onGroupResizeStart?: (itemId: string, dir: "nw" | "ne" | "sw" | "se") => void;
   onItemTextCommit: (itemId: string, text: string) => void;
 }) => {
+  const containerUsage = new Set(
+    band.items.filter((i) => i.containerId).map((i) => i.containerId),
+  );
+  const containerIds = new Set(
+    band.items
+      .map((i) => i.containerId)
+      .filter((id): id is string => Boolean(id)),
+  );
+
   return (
     <div
       tabIndex={0}
@@ -61,66 +70,19 @@ const Band = ({
       </div>
 
       <div className="absolute inset-0 ml-28 overflow-hidden">
-        {/* 1️⃣ Rectangles FIRST */}
         {band.items
-          .filter((item) => item.type === "Rectangle")
-          .map((rect) => {
-            const children = band.items.filter((i) => i.parentId === rect.id);
-
-            return (
-              <div
-                key={rect.id}
-                style={{
-                  position: "absolute",
-                  left: rect.x,
-                  top: rect.y,
-                  width: rect.width,
-                  height: rect.height,
-                }}
-              >
-                <ReportItem
-                  item={{ ...rect, x: 0, y: 0 }}
-                  isSelected={selectedItemIds.includes(rect.id)}
-                  isGroupResizing={isGroupResizing}
-                  onSelect={onItemSelect}
-                  onDrag={onItemDrag}
-                  onResize={onItemResize}
-                  onDragStart={onDragStart}
-                  onDragCancel={onDragCancel}
-                  onGroupResizeStart={onGroupResizeStart}
-                  onItemTextCommit={onItemTextCommit}
-                />
-
-                {children.map((child) => (
-                  <ReportItem
-                    key={child.id}
-                    item={{
-                      ...child,
-                      x: child.x - rect.x,
-                      y: child.y - rect.y,
-                    }}
-                    isSelected={selectedItemIds.includes(child.id)}
-                    isGroupResizing={isGroupResizing}
-                    onSelect={onItemSelect}
-                    onDrag={onItemDrag}
-                    onResize={onItemResize}
-                    onDragStart={onDragStart}
-                    onDragCancel={onDragCancel}
-                    onGroupResizeStart={onGroupResizeStart}
-                    onItemTextCommit={onItemTextCommit}
-                  />
-                ))}
-              </div>
-            );
-          })}
-
-        {/* 2️⃣ Normal items LAST */}
-        {band.items
-          .filter((item) => !item.parentId && item.type !== "Rectangle")
+          .slice()
+          .sort((a, b) => (a.type === "Rectangle" ? -1 : 1))
           .map((item) => (
             <ReportItem
               key={item.id}
-              item={item}
+              item={{
+                ...item,
+                props: {
+                  ...item.props,
+                  hasChildren: containerUsage.has(item.id),
+                },
+              }}
               isSelected={selectedItemIds.includes(item.id)}
               isGroupResizing={isGroupResizing}
               onSelect={onItemSelect}
@@ -130,6 +92,8 @@ const Band = ({
               onDragCancel={onDragCancel}
               onGroupResizeStart={onGroupResizeStart}
               onItemTextCommit={onItemTextCommit}
+              hasChildren={containerIds.has(item.id)} // 👈 NEW (visual only)
+              isContained={Boolean(item.containerId)}
             />
           ))}
       </div>

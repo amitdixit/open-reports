@@ -189,7 +189,36 @@ const ReportSurface = ({
       const y = snap(start.y + snappedDy);
 
       if (isFinal) {
+        const allItems = bands.flatMap((b) => b.items);
+
+        const draggedItem = allItems.find((i) => i.id === itemId);
+        if (!draggedItem) {
+          clearDragPreview();
+          return;
+        }
+
+        const containerId = resolveContainerId(
+          itemId,
+          {
+            x,
+            y,
+            width: draggedItem.width,
+            height: draggedItem.height,
+          },
+          allItems,
+        );
         onItemDragCommit(itemId, x, y);
+
+        if (containerId !== draggedItem.containerId) {
+          onItemResizeCommit(itemId, {
+            x,
+            y,
+            width: draggedItem.width,
+            height: draggedItem.height,
+            containerId,
+          } as any);
+        }
+
         clearDragPreview();
 
         return;
@@ -314,7 +343,14 @@ const ReportSurface = ({
     };
 
     if (isFinal) {
-      onItemResizeCommit(itemId, snapped);
+      const allItems = bands.flatMap((b) => b.items);
+
+      const containerId = resolveContainerId(itemId, snapped, allItems);
+
+      onItemResizeCommit(itemId, {
+        ...snapped,
+        containerId,
+      } as any);
       setResizePreview({});
       return;
     }
@@ -365,6 +401,29 @@ const ReportSurface = ({
     singleDragStartRef.current = null;
     isGroupResizeActiveRef.current = false;
     lastGroupResizePreviewRef.current = {};
+  };
+
+  const resolveContainerId = (
+    itemId: string,
+    item: { x: number; y: number; width: number; height: number },
+    items: ReportItemModel[],
+  ): string | undefined => {
+    const containers = items.filter(
+      (i) =>
+        i.id !== itemId && // ⛔ prevent self-containment
+        i.type === "Rectangle" &&
+        item.x >= i.x &&
+        item.y >= i.y &&
+        item.x + item.width <= i.x + i.width &&
+        item.y + item.height <= i.y + i.height,
+    );
+
+    if (containers.length === 0) return undefined;
+
+    // Prefer the deepest (smallest enclosing rectangle)
+    containers.sort((a, b) => a.width * a.height - b.width * b.height);
+
+    return containers[0].id;
   };
 
   return (

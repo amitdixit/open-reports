@@ -35,7 +35,7 @@ export type ReportItemModel = {
   height: number;
   props: Record<string, any>;
   text?: string; // for TextBox
-  parentId?: string;
+  containerId?: string;
 };
 
 export type BandModel = {
