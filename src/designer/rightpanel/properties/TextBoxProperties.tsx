@@ -13,7 +13,7 @@ const TextBoxProperties = ({
   const text = item.props?.text ?? "";
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <Input
         label="Text"
         value={text}

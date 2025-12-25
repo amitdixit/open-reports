@@ -190,7 +190,13 @@ const PaletteItem = ({
   return (
     <div
       onClick={onClick}
-      className="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer hover:bg-gray-100 select-none text-gray-700"
+      className=" flex items-center gap-2
+       px-3 py-2
+       cursor-pointer
+       text-sm text-gray-700
+       hover:bg-gray-100
+       hover:text-blue-600
+       rounded-sm"
     >
       <span className="text-gray-500">{icon}</span>
       <span>{label}</span>

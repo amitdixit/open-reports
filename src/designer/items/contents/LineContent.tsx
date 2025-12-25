@@ -7,7 +7,7 @@ const LineContent = ({ item }: { item: ReportItemModel }) => {
   return (
     <div className="w-full h-full flex items-center pointer-events-none">
       <div
-        className="w-full"
+        className="w-full rounded-full"
         style={{
           height: strokeWidth,
           backgroundColor: color,

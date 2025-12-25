@@ -12,7 +12,7 @@ const RectangleContent = ({
   const borderWidth = item.props?.borderWidth ?? 1;
   return (
     <div
-      className={`w-full h-full pointer-events-none ${
+      className={`w-full h-full pointer-events-none rounded-sm ${
         hasChildren
           ? "border-2 border-dashed border-blue-400 bg-blue-50/20"
           : "border border-dashed border-gray-400"
@@ -20,7 +20,7 @@ const RectangleContent = ({
       style={{
         zIndex: 0,
         backgroundColor: fill,
-        borderStyle: "solid",
+        borderStyle: hasChildren ? "dashed" : "solid",
         borderColor,
         borderWidth,
       }}

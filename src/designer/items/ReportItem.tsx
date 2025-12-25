@@ -213,12 +213,12 @@ const ReportItem = ({
     <div
       onMouseDown={onMouseDown}
       className={
-        "absolute text-xs flex items-center justify-center select-none cursor-move " +
+        "absolute text-xs flex items-center justify-center select-none cursor-move transition-colors" +
         (isSelected
           ? "border-2 border-blue-600 bg-blue-50"
           : isContained
-            ? "border border-gray-300 bg-blue-50/10"
-            : "border border-gray-400 bg-white")
+            ? " border border-dashed border-gray-300 bg-blue-50/10"
+            : " border border-gray-300 bg-white hover:border-gray-400")
       }
       style={{
         left: item.x,

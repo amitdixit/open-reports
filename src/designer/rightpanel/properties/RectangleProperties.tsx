@@ -15,7 +15,7 @@ const RectangleProperties = ({
   const borderWidth = String(item.props?.borderWidth ?? 1);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <Input
         label="Fill"
         value={fillColor}

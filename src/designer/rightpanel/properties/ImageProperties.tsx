@@ -14,7 +14,7 @@ const ImageProperties = ({
   const fit = item.props?.fit ?? "contain";
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <Input
         label="Source"
         value={src}

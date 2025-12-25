@@ -14,7 +14,7 @@ const TableProperties = ({
   const columns = String(item.props?.columns ?? 3);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <Input
         label="Rows"
         value={rows}

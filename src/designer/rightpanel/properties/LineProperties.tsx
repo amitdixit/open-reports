@@ -14,7 +14,7 @@ const LineProperties = ({
   const width = String(item.props?.width ?? 1);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <Input
         label="Color"
         value={color}

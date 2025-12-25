@@ -6,10 +6,19 @@ const TableContent = ({ item }: { item: ReportItemModel }) => {
 
   return (
     <div
-      className="w-full h-full border border-gray-400 bg-white text-[10px] text-gray-600 grid pointer-events-none"
+      className="
+        w-full h-full
+        bg-white
+        text-[10px] text-gray-600
+        grid
+        pointer-events-none
+        rounded-sm
+        overflow-hidden
+      "
       style={{
         gridTemplateRows: `repeat(${rows}, 1fr)`,
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
+        border: "1px solid #d1d5db",
       }}
     >
       {Array.from({ length: rows * columns }).map((_, i) => (

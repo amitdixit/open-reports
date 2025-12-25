@@ -6,7 +6,18 @@ const ImageContent = ({ item }: { item: ReportItemModel }) => {
 
   if (!src) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-500 text-xs pointer-events-none">
+      <div
+        className="
+          w-full h-full
+          flex items-center justify-center
+          bg-gray-100
+          text-gray-400
+          text-xs
+          italic
+          pointer-events-none
+          rounded-sm
+        "
+      >
         No Image
       </div>
     );

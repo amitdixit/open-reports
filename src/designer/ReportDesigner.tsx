@@ -136,7 +136,7 @@ const ReportDesigner = () => {
     }));
   };
 
-  const commitGroupDrag = (
+  const onGroupDragCommit = (
     nextPositions: Record<string, { x: number; y: number }>,
   ) => {
     const next = present.map((band) => ({
@@ -216,11 +216,11 @@ const ReportDesigner = () => {
     commit(updated);
   };
 
-  const commitItemPosition = (itemId: string, x: number, y: number) => {
+  const onItemDragCommit = (itemId: string, x: number, y: number) => {
     commitItemGeometry(itemId, { x, y });
   };
 
-  const commitItemResize = (
+  const onItemResizeCommit = (
     itemId: string,
     next: { x: number; y: number; width: number; height: number },
   ) => {
@@ -340,7 +340,7 @@ const ReportDesigner = () => {
     commit(next);
   };
 
-  const commitGroupResize = (
+  const onGroupResizeCommit = (
     next: Record<
       string,
       { x: number; y: number; width: number; height: number }
@@ -392,11 +392,30 @@ const ReportDesigner = () => {
     commit(next);
   };
 
-  const commitItemText = (itemId: string, text: string) => {
+  // const onItemTextCommit = (itemId: string, text: string) => {
+  //   const updated = present.map((band) => ({
+  //     ...band,
+  //     items: band.items.map((item) =>
+  //       item.id === itemId ? { ...item, text } : item,
+  //     ),
+  //   }));
+
+  //   commit(updated);
+  // };
+  //
+  const onItemTextCommit = (itemId: string, text: string) => {
     const updated = present.map((band) => ({
       ...band,
       items: band.items.map((item) =>
-        item.id === itemId ? { ...item, text } : item,
+        item.id === itemId
+          ? {
+              ...item,
+              props: {
+                ...item.props,
+                text: text ?? "", // ✅ empty string is valid
+              },
+            }
+          : item,
       ),
     }));
 
@@ -406,6 +425,18 @@ const ReportDesigner = () => {
   /* ---------------- Keyboard shortcuts ---------------- */
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+
+      // 🔒 DO NOT delete items while typing
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
       if (
         (e.key === "Delete" || e.key === "Backspace") &&
         selectedItemIds.length > 0
@@ -462,11 +493,11 @@ const ReportDesigner = () => {
           selectedItemIds={selectedItemIds}
           onBandSelect={setSelectedBandId}
           onItemSelect={setSelectedItemIds}
-          onItemDragCommit={commitItemPosition}
-          onItemResizeCommit={commitItemResize}
-          onGroupDragCommit={commitGroupDrag}
-          onGroupResizeCommit={commitGroupResize}
-          onItemTextCommit={commitItemText}
+          onItemDragCommit={onItemDragCommit}
+          onItemResizeCommit={onItemResizeCommit}
+          onGroupDragCommit={onGroupDragCommit}
+          onGroupResizeCommit={onGroupResizeCommit}
+          onItemTextCommit={onItemTextCommit}
         />
 
         <RightPanel selectedItem={selectedItem} onCommit={commitItemGeometry} />
