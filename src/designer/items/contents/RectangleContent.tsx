@@ -7,7 +7,7 @@ const RectangleContent = ({
   item: ReportItemModel;
   hasChildren?: boolean;
 }) => {
-  const fill = item.props?.fillColor ?? "transparent";
+  const fill = item.props?.backgroundColor ?? "transparent";
   const borderColor = item.props?.borderColor ?? "#9ca3af";
   const borderWidth = item.props?.borderWidth ?? 1;
   const borderStyle = hasChildren
