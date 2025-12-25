@@ -9,7 +9,7 @@ const ImageProperties = ({
   onCommit: (itemId: string, next: Partial<ReportItemModel>) => void;
 }) => {
   if (item.type !== "Image") return null;
-
+  //https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg
   const src = item.props?.src ?? "";
   const fit = item.props?.fit ?? "contain";
 

@@ -10,6 +10,9 @@ import LineProperties from "./properties/LineProperties";
 import AppearanceProperties from "./properties/AppearanceProperties";
 import PropertyGroup from "./properties/PropertyGroup";
 import { Input } from "./InputPanel";
+import TableHeaderProperties from "./properties/TableHeaderProperties";
+import TableBodyProperties from "./properties/TableBodyProperties";
+import TableFooterProperties from "./properties/TableFooterProperties";
 
 const GRID_SIZE = 8;
 const MIN_WIDTH = 24;
@@ -100,11 +103,44 @@ const RightPanel = ({
 
       case "Rectangle":
       case "Image":
-      case "Table":
       case "Line":
         return (
           <>
             <PropertyGroup title="Appearance" defaultOpen>
+              <AppearanceProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Position">
+              <CommonProperties
+                item={selectedItem}
+                local={local}
+                setLocal={setLocal}
+                onCommit={onCommit}
+                onKeyDown={onKeyDown}
+              />
+            </PropertyGroup>
+          </>
+        );
+      case "Table":
+        return (
+          <>
+            <PropertyGroup title="Table" defaultOpen>
+              <TableProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Header">
+              <TableHeaderProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Body">
+              <TableBodyProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Footer">
+              <TableFooterProperties item={selectedItem} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Appearance">
               <AppearanceProperties item={selectedItem} onCommit={onCommit} />
             </PropertyGroup>
 
