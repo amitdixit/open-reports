@@ -13,6 +13,8 @@ const TextBoxContent = ({
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(item.props?.text ?? "");
   const ref = useRef<HTMLDivElement>(null);
+  const fontSize = item.props?.fontSize ?? 12;
+  const color = item.props?.color ?? "#000000";
 
   // Sync external updates (undo / redo)
   useEffect(() => {
@@ -31,15 +33,15 @@ const TextBoxContent = ({
       ref={ref}
       contentEditable={editing}
       suppressContentEditableWarning
-      className={`w-full h-full px-1 outline-none ${
+      className={`w-full h-full px-1 outline-none overflow-hidden ${
         editing ? "cursor-text" : "cursor-move"
       }`}
+      style={{ fontSize, color }}
       onDoubleClick={() => {
         if (isSelected) setEditing(true);
       }}
       onBlur={() => {
         setEditing(false);
-        // ✅ ALWAYS commit a string (empty is valid)
         onTextCommit(item.id, value ?? "");
       }}
       onInput={(e) => setValue((e.target as HTMLDivElement).innerText)}
