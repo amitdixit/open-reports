@@ -239,11 +239,11 @@ const ReportItem = ({
         <RectangleContent item={item} hasChildren={hasChildren} />
       )}
 
-      {item.type === "Line" && <LineContent />}
+      {item.type === "Line" && <LineContent item={item} />}
 
-      {item.type === "Image" && <ImageContent />}
+      {item.type === "Image" && <ImageContent item={item} />}
 
-      {item.type === "Table" && <TableContent />}
+      {item.type === "Table" && <TableContent item={item} />}
 
       {item.type?.includes("Chart") && <ChartContent label={item.type} />}
 

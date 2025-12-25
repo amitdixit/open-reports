@@ -1,8 +1,26 @@
-const ImageContent = () => {
+import { type ReportItemModel } from "../../state/reportModel";
+
+const ImageContent = ({ item }: { item: ReportItemModel }) => {
+  const src = item.props?.src;
+  const fit = item.props?.fit ?? "contain";
+
+  if (!src) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-500 text-xs pointer-events-none">
+        No Image
+      </div>
+    );
+  }
+
+  const objectFit = fit === "stretch" ? "fill" : fit;
+
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-500 text-xs pointer-events-none">
-      Image
-    </div>
+    <img
+      src={src}
+      className="w-full h-full pointer-events-none"
+      style={{ objectFit }}
+      alt=""
+    />
   );
 };
 

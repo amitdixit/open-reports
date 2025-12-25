@@ -47,9 +47,11 @@ const ReportDesigner = () => {
   };
 
   const addItem = (type: ReportItemType) => {
-    if (!selectedBandId) return;
+    const band =
+      selectedBandId == null
+        ? present.find((b) => b.type === "Detail")
+        : present.find((b) => b.id === selectedBandId);
 
-    const band = present.find((b) => b.id === selectedBandId);
     if (!band) return;
 
     const { width, height } = getDefaultSize(type);

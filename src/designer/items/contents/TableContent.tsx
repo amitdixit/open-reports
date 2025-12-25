@@ -1,7 +1,18 @@
-const TableContent = () => {
+import { type ReportItemModel } from "../../state/reportModel";
+
+const TableContent = ({ item }: { item: ReportItemModel }) => {
+  const rows = item.props?.rows ?? 3;
+  const columns = item.props?.columns ?? 3;
+
   return (
-    <div className="w-full h-full border border-gray-400 bg-white text-[10px] text-gray-600 grid grid-cols-3 grid-rows-3 pointer-events-none">
-      {Array.from({ length: 9 }).map((_, i) => (
+    <div
+      className="w-full h-full border border-gray-400 bg-white text-[10px] text-gray-600 grid pointer-events-none"
+      style={{
+        gridTemplateRows: `repeat(${rows}, 1fr)`,
+        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+      }}
+    >
+      {Array.from({ length: rows * columns }).map((_, i) => (
         <div
           key={i}
           className="border border-gray-200 flex items-center justify-center"

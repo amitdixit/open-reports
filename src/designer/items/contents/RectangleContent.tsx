@@ -7,6 +7,9 @@ const RectangleContent = ({
   item: ReportItemModel;
   hasChildren?: boolean;
 }) => {
+  const fill = item.props?.fillColor ?? "transparent";
+  const borderColor = item.props?.borderColor ?? "#9ca3af";
+  const borderWidth = item.props?.borderWidth ?? 1;
   return (
     <div
       className={`w-full h-full pointer-events-none ${
@@ -14,7 +17,13 @@ const RectangleContent = ({
           ? "border-2 border-dashed border-blue-400 bg-blue-50/20"
           : "border border-dashed border-gray-400"
       }`}
-      style={{ zIndex: 0 }}
+      style={{
+        zIndex: 0,
+        backgroundColor: fill,
+        borderStyle: "solid",
+        borderColor,
+        borderWidth,
+      }}
     />
   );
 };
