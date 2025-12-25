@@ -10,6 +10,10 @@ const RectangleContent = ({
   const fill = item.props?.fillColor ?? "transparent";
   const borderColor = item.props?.borderColor ?? "#9ca3af";
   const borderWidth = item.props?.borderWidth ?? 1;
+  const borderStyle = hasChildren
+    ? "dashed" // 🔒 structural override
+    : (item.props?.borderStyle ?? "solid");
+
   return (
     <div
       className={`w-full h-full pointer-events-none rounded-sm ${
@@ -20,7 +24,7 @@ const RectangleContent = ({
       style={{
         zIndex: 0,
         backgroundColor: fill,
-        borderStyle: hasChildren ? "dashed" : "solid",
+        borderStyle,
         borderColor,
         borderWidth,
       }}

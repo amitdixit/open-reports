@@ -9,6 +9,7 @@ import ImageProperties from "./properties/ImageProperties";
 import TableProperties from "./properties/TableProperties";
 import LineProperties from "./properties/LineProperties";
 import AppearanceProperties from "./properties/AppearanceProperties";
+import PropertyGroup from "./properties/PropertyGroup";
 
 const GRID_SIZE = 8;
 const MIN_WIDTH = 24;
@@ -75,15 +76,50 @@ const RightPanel = ({
 
     switch (selectedItem.type) {
       case "TextBox":
-        return <TextBoxProperties item={selectedItem} onCommit={onCommit} />;
+        return (
+          <>
+            <PropertyGroup title="Basic Settings" defaultOpen>
+              <TextBoxProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Appearance">
+              <AppearanceProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Position">
+              <CommonProperties
+                item={selectedItem}
+                local={local}
+                setLocal={setLocal}
+                onCommit={onCommit}
+                onKeyDown={onKeyDown}
+              />
+            </PropertyGroup>
+          </>
+        );
+
       case "Rectangle":
-        return <RectangleProperties item={selectedItem} onCommit={onCommit} />;
       case "Image":
-        return <ImageProperties item={selectedItem} onCommit={onCommit} />;
       case "Table":
-        return <TableProperties item={selectedItem} onCommit={onCommit} />;
       case "Line":
-        return <LineProperties item={selectedItem} onCommit={onCommit} />;
+        return (
+          <>
+            <PropertyGroup title="Appearance" defaultOpen>
+              <AppearanceProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+
+            <PropertyGroup title="Position">
+              <CommonProperties
+                item={selectedItem}
+                local={local}
+                setLocal={setLocal}
+                onCommit={onCommit}
+                onKeyDown={onKeyDown}
+              />
+            </PropertyGroup>
+          </>
+        );
+
       default:
         return null;
     }
