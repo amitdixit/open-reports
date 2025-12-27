@@ -1,6 +1,6 @@
-import { Input } from "../InputPanel";
 import ColorInput from "../controls/ColorInput";
 import { type ReportItemModel } from "../../state/reportModel";
+import { Input } from "../controls/Input";
 
 const TableBodyProperties = ({
   item,

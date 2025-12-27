@@ -22,7 +22,7 @@ const ColorInput = ({ label, value, onChange }: Props) => {
             border rounded
             cursor-pointer
             p-0
-            flex-shrink-0
+            shrink-0
           "
         />
 
@@ -33,9 +33,9 @@ const ColorInput = ({ label, value, onChange }: Props) => {
           onChange={(e) => onChange(e.target.value)}
           className="
             w-28
-            px-2 py-1
+            px-2 py-[2px]
             text-sm
-            border rounded
+            border rounded-sm
             font-mono
           "
         />

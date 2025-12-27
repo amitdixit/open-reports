@@ -9,10 +9,10 @@ import TableProperties from "./properties/TableProperties";
 import LineProperties from "./properties/LineProperties";
 import AppearanceProperties from "./properties/AppearanceProperties";
 import PropertyGroup from "./properties/PropertyGroup";
-import { Input } from "./InputPanel";
 import TableHeaderProperties from "./properties/TableHeaderProperties";
 import TableBodyProperties from "./properties/TableBodyProperties";
 import TableFooterProperties from "./properties/TableFooterProperties";
+import { Input } from "./controls/Input";
 
 const GRID_SIZE = 8;
 const MIN_WIDTH = 24;

@@ -1,7 +1,7 @@
 import { type ReportItemModel } from "../../state/reportModel";
 import ColorInput from "../controls/ColorInput";
+import { Input } from "../controls/Input";
 import SelectInput from "../controls/SelectInput";
-import { Input } from "../InputPanel";
 
 const AppearanceProperties = ({
   item,
@@ -12,60 +12,68 @@ const AppearanceProperties = ({
 }) => {
   const props = item.props ?? {};
 
-  const bg = props.backgroundColor ?? "#ffffff";
-  const borderColor = props.borderColor ?? "#9ca3af";
-  const borderWidth = String(props.borderWidth ?? 1);
-  const borderStyle = props.borderStyle ?? "solid";
-
   return (
-    <div className="space-y-3">
-      <ColorInput
-        label="Background"
-        value={bg}
-        onChange={(v) =>
-          onCommit(item.id, {
-            props: { ...props, backgroundColor: v },
-          })
-        }
-      />
+    <div className="space-y-4">
+      {/* Fill */}
+      <div className="space-y-2">
+        <div className="text-xs font-medium text-gray-600">Fill</div>
 
-      <ColorInput
-        label="Border"
-        value={borderColor}
-        onChange={(v) =>
-          onCommit(item.id, {
-            props: { ...props, borderColor: v },
-          })
-        }
-      />
+        <ColorInput
+          label="Background"
+          value={props.background ?? "#ffffff"}
+          onChange={(v) =>
+            onCommit(item.id, {
+              props: { ...props, background: v },
+            })
+          }
+        />
+      </div>
 
-      <Input
-        label="Border Width"
-        value={borderWidth}
-        onChange={(v) =>
-          onCommit(item.id, {
-            props: {
-              ...props,
-              borderWidth: Math.max(0, Number(v) || 0),
-            },
-          })
-        }
-      />
+      {/* Stroke */}
+      <div className="pt-3 border-t space-y-3">
+        <div className="text-xs font-medium text-gray-600">Border</div>
 
-      <SelectInput
-        label="Border Style"
-        value={borderStyle}
-        options={[
-          { label: "Solid", value: "solid" },
-          { label: "Dashed", value: "dashed" },
-          { label: "Dotted", value: "dotted" },
-        ]}
-        onChange={(v) =>
-          onCommit(item.id, {
-            props: { ...props, borderStyle: v },
-          })
-        }
-      />
+        <ColorInput
+          label="Color"
+          value={props.borderColor ?? "#9ca3af"}
+          onChange={(v) =>
+            onCommit(item.id, {
+              props: { ...props, borderColor: v },
+            })
+          }
+        />
+
+        <Input
+          label="Width"
+          value={String(props.borderWidth ?? 1)}
+          onChange={(v) =>
+            onCommit(item.id, {
+              props: {
+                ...props,
+                borderWidth: Number(v) || 1,
+              },
+            })
+          }
+        />
+
+        <SelectInput
+          label="Style"
+          value={props.borderStyle ?? "solid"}
+          options={[
+            { label: "Solid", value: "solid" },
+            { label: "Dashed", value: "dashed" },
+            { label: "Dotted", value: "dotted" },
+          ]}
+          onChange={(v) =>
+            onCommit(item.id, {
+              props: {
+                ...props,
+                borderStyle: v as "solid" | "dashed" | "dotted",
+              },
+            })
+          }
+        />
+      </div>
     </div>
   );
 };

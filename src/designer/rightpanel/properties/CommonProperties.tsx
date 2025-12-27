@@ -1,5 +1,5 @@
 import { type ReportItemModel } from "../../state/reportModel";
-import { Input } from "../InputPanel";
+import { Input } from "../controls/Input";
 
 const GRID_SIZE = 8;
 const MIN_WIDTH = 24;

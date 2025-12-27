@@ -1,4 +1,4 @@
-import { Input } from "../InputPanel";
+import { Input } from "../controls/Input";
 import ColorInput from "../controls/ColorInput";
 import { type ReportItemModel } from "../../state/reportModel";
 

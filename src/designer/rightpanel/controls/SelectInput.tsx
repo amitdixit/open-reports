@@ -1,4 +1,7 @@
-type Option = { label: string; value: string };
+type Option = {
+  label: string;
+  value: string;
+};
 
 type Props = {
   label: string;
@@ -9,12 +12,20 @@ type Props = {
 
 const SelectInput = ({ label, value, options, onChange }: Props) => {
   return (
-    <div className="flex items-center gap-2">
-      <label className="text-xs text-gray-500 w-20">{label}</label>
+    <div className="grid grid-cols-[80px_1fr] items-center gap-2">
+      {/* Label */}
+      <label className="text-xs text-gray-500">{label}</label>
+
+      {/* Select */}
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="flex-1 px-2 py-1 text-sm border rounded"
+        className="
+          w-full
+          px-2 py-1
+          text-sm
+          border rounded
+        "
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
