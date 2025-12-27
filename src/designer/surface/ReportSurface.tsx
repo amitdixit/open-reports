@@ -451,6 +451,16 @@ const ReportSurface = ({
                 `,
         }}
       >
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: report.page.margin.top,
+            left: report.page.margin.left,
+            right: report.page.margin.right,
+            bottom: report.page.margin.bottom,
+            border: "1px dashed rgba(0,0,0,0.18)",
+          }}
+        />
         {/* Bands */}
         <div className="relative">
           {bands.map((band) => (
