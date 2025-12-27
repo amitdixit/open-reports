@@ -3,11 +3,6 @@ import { type BandModel } from "../state/reportModel";
 import BandResizeHandle from "./BandResizeHandle";
 import ReportItem from "../items/ReportItem";
 
-/**
- * Band
- * ----------------
- */
-
 const Band = ({
   band,
   selectedBandId,
@@ -44,6 +39,7 @@ const Band = ({
   const containerUsage = new Set(
     band.items.filter((i) => i.containerId).map((i) => i.containerId),
   );
+
   const containerIds = new Set(
     band.items
       .map((i) => i.containerId)
@@ -62,14 +58,13 @@ const Band = ({
       }
       style={{ height: band.height }}
     >
-      {/* Band label */}
-      <div className="absolute left-0 top-0 h-full w-28 border-r border-gray-300 bg-gray-100 flex items-center px-2 pointer-events-none">
-        <span className="text-xs font-semibold text-gray-600 truncate">
-          {band.type}
-        </span>
+      {/* Band header */}
+      <div className="h-6 px-2 flex items-center border-b border-gray-300 bg-gray-100 pointer-events-none">
+        <span className="text-xs font-semibold text-gray-600">{band.type}</span>
       </div>
 
-      <div className="absolute inset-0 ml-28 overflow-hidden">
+      {/* Band content */}
+      <div className="absolute left-0 right-0 top-6 bottom-0 overflow-hidden">
         {band.items
           .slice()
           .sort((a, b) => (a.type === "Rectangle" ? -1 : 1))
@@ -92,7 +87,7 @@ const Band = ({
               onDragCancel={onDragCancel}
               onGroupResizeStart={onGroupResizeStart}
               onItemTextCommit={onItemTextCommit}
-              hasChildren={containerIds.has(item.id)} // 👈 NEW (visual only)
+              hasChildren={containerIds.has(item.id)}
               isContained={Boolean(item.containerId)}
             />
           ))}

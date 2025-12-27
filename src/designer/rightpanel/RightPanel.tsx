@@ -6,7 +6,6 @@ import TextBoxProperties from "./properties/TextBoxProperties";
 import CommonProperties from "./properties/CommonProperties";
 import ImageProperties from "./properties/ImageProperties";
 import TableProperties from "./properties/TableProperties";
-import LineProperties from "./properties/LineProperties";
 import AppearanceProperties from "./properties/AppearanceProperties";
 import PropertyGroup from "./properties/PropertyGroup";
 import TableHeaderProperties from "./properties/TableHeaderProperties";
@@ -55,7 +54,6 @@ const RightPanel = ({
   }, [selectedItem]);
 
   /* ---------------- Commit helpers ---------------- */
-
   const commit = () => {
     if (!selectedItem || !local) return;
 
@@ -84,7 +82,7 @@ const RightPanel = ({
             <PropertyGroup title="Position">
               <CommonProperties
                 item={selectedItem}
-                local={local}
+                local={local!}
                 setLocal={setLocal}
                 onCommit={onCommit}
                 onKeyDown={onKeyDown}
@@ -106,7 +104,7 @@ const RightPanel = ({
             <PropertyGroup title="Position">
               <CommonProperties
                 item={selectedItem}
-                local={local}
+                local={local!}
                 setLocal={setLocal}
                 onCommit={onCommit}
                 onKeyDown={onKeyDown}
@@ -123,7 +121,7 @@ const RightPanel = ({
             <PropertyGroup title="Position">
               <CommonProperties
                 item={selectedItem}
-                local={local}
+                local={local!}
                 setLocal={setLocal}
                 onCommit={onCommit}
                 onKeyDown={onKeyDown}
@@ -155,7 +153,7 @@ const RightPanel = ({
             <PropertyGroup title="Position">
               <CommonProperties
                 item={selectedItem}
-                local={local}
+                local={local!}
                 setLocal={setLocal}
                 onCommit={onCommit}
                 onKeyDown={onKeyDown}
