@@ -21,8 +21,8 @@ const TextBoxContent = ({
   const textAlign = item.props?.textAlign ?? "left";
   const verticalAlign = item.props?.verticalAlign ?? "top";
   const backgroundColor = item.props?.backgroundColor ?? "transparent";
-  const borderColor = item.props?.borderColor ?? "transparent";
-  const borderWidth = item.props?.borderWidth ?? 0;
+  const borderColor = item.props?.borderColor ?? "#9ca3af";
+  const borderWidth = item.props?.borderWidth ?? 1;
   const borderStyle = item.props?.borderStyle ?? "solid";
   const fontFamily = item.props?.fontFamily ?? "Arial";
 

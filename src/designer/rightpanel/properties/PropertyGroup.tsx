@@ -18,7 +18,8 @@ const PropertyGroup = ({ title, defaultOpen = false, children }: Props) => {
         className="
           w-full flex items-center justify-between
           px-3 py-2
-          text-sm font-medium text-gray-700
+          text-xs font-semibold tracking-wide
+          text-gray-700
           hover:bg-gray-50
           select-none
         "
@@ -26,7 +27,7 @@ const PropertyGroup = ({ title, defaultOpen = false, children }: Props) => {
         <span>{title}</span>
         <span
           className={`
-            text-gray-500
+            text-gray-400 text-xs
             transition-transform duration-150
             ${open ? "rotate-90" : ""}
           `}
@@ -36,7 +37,9 @@ const PropertyGroup = ({ title, defaultOpen = false, children }: Props) => {
       </button>
 
       {/* Content */}
-      {open && <div className="px-3 py-3 space-y-4">{children}</div>}
+      {open && (
+        <div className="px-3 py-2 space-y-3 bg-gray-50/30">{children}</div>
+      )}
     </div>
   );
 };

@@ -105,7 +105,6 @@ const ReportItem = ({
     const dx = e.clientX - dragStartRef.current.mouseX;
     const dy = e.clientY - dragStartRef.current.mouseY;
 
-    // ⛔ Not a drag yet
     if (
       !dragStartRef.current.started &&
       Math.abs(dx) < DRAG_THRESHOLD &&
@@ -114,19 +113,9 @@ const ReportItem = ({
       return;
     }
 
-    // 🔒 Start drag ONCE
-    // if (!dragStartRef.current.started) {
-    //     dragStartRef.current.started = true;
-    //     onDragStart?.(item.id);
-    // }
-
     if (!dragStartRef.current.started) {
       dragStartRef.current.started = true;
-
-      // 🔒 Arm snapshot first
       onDragStart?.(item.id);
-
-      // ⛔ DO NOT process drag on the same mousemove
       return;
     }
 
@@ -205,9 +194,6 @@ const ReportItem = ({
       cleanupDrag();
     }
   };
-
-  // const hasChildren =
-  //   item.type === "Rectangle" && Boolean(item.props?.hasChildren);
 
   return (
     <div

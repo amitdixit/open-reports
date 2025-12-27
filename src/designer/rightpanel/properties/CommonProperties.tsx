@@ -37,12 +37,6 @@ const CommonProperties = ({
   return (
     <div className="space-y-4">
       <Input
-        label="Name"
-        value={item.name ?? ""}
-        onChange={(v) => onCommit(item.id, { name: v })}
-      />
-
-      <Input
         label="X"
         value={local.x}
         onChange={(v) => setLocal({ ...local, x: v })}
