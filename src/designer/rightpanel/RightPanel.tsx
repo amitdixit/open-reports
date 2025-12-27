@@ -90,12 +90,11 @@ const RightPanel = ({
                 onKeyDown={onKeyDown}
               />
             </PropertyGroup>
-            <PropertyGroup title="Basic Settings" defaultOpen>
-              <TextBoxProperties item={selectedItem} onCommit={onCommit} />
-            </PropertyGroup>
-
             <PropertyGroup title="Appearance">
               <AppearanceProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+            <PropertyGroup title="Basic Settings" defaultOpen>
+              <TextBoxProperties item={selectedItem} onCommit={onCommit} />
             </PropertyGroup>
           </>
         );
@@ -121,6 +120,18 @@ const RightPanel = ({
       case "Table":
         return (
           <>
+            <PropertyGroup title="Position">
+              <CommonProperties
+                item={selectedItem}
+                local={local}
+                setLocal={setLocal}
+                onCommit={onCommit}
+                onKeyDown={onKeyDown}
+              />
+            </PropertyGroup>
+            <PropertyGroup title="Appearance">
+              <AppearanceProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
             <PropertyGroup title="Table" defaultOpen>
               <TableProperties item={selectedItem} onCommit={onCommit} />
             </PropertyGroup>
@@ -136,20 +147,6 @@ const RightPanel = ({
             <PropertyGroup title="Footer">
               <TableFooterProperties item={selectedItem} />
             </PropertyGroup>
-
-            <PropertyGroup title="Appearance">
-              <AppearanceProperties item={selectedItem} onCommit={onCommit} />
-            </PropertyGroup>
-
-            <PropertyGroup title="Position">
-              <CommonProperties
-                item={selectedItem}
-                local={local}
-                setLocal={setLocal}
-                onCommit={onCommit}
-                onKeyDown={onKeyDown}
-              />
-            </PropertyGroup>
           </>
         );
       case "Image":
@@ -164,12 +161,11 @@ const RightPanel = ({
                 onKeyDown={onKeyDown}
               />
             </PropertyGroup>
-            <PropertyGroup title="Image">
-              <ImageProperties item={selectedItem} onCommit={onCommit} />
-            </PropertyGroup>
-
             <PropertyGroup title="Appearance">
               <AppearanceProperties item={selectedItem} onCommit={onCommit} />
+            </PropertyGroup>
+            <PropertyGroup title="Image">
+              <ImageProperties item={selectedItem} onCommit={onCommit} />
             </PropertyGroup>
           </>
         );
