@@ -37,7 +37,7 @@ const Band = ({
   onItemTextCommit: (itemId: string, text: string) => void;
 }) => {
   const isEmpty = band.items.length === 0;
-
+  const isDetail = band.type === "Detail";
   const containerUsage = new Set(
     band.items.filter((i) => i.containerId).map((i) => i.containerId),
   );
@@ -66,14 +66,18 @@ const Band = ({
       <div
         className={
           "h-6 px-2 flex items-center border-b pointer-events-none " +
-          (isEmpty
-            ? "border-gray-200 bg-gray-50"
-            : "border-gray-300 bg-gray-100")
+          (isDetail
+            ? "border-gray-300 bg-gray-200"
+            : isEmpty
+              ? "border-gray-200 bg-gray-50"
+              : "border-gray-300 bg-gray-100")
         }
       >
         <span
           className={
-            "text-xs font-semibold " +
+            "text-xs " +
+            (isDetail ? "font-bold" : "font-semibold") +
+            " " +
             (isEmpty ? "text-gray-400" : "text-gray-600")
           }
         >
