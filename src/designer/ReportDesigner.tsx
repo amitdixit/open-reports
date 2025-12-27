@@ -47,10 +47,7 @@ const ReportDesigner = () => {
   };
 
   const addItem = (type: ReportItemType) => {
-    const band =
-      selectedBandId == null
-        ? present.find((b) => b.type === "Detail")
-        : present.find((b) => b.id === selectedBandId);
+    const band = present.find((b) => b.type === "Detail");
 
     if (!band) return;
 
@@ -85,39 +82,6 @@ const ReportDesigner = () => {
   };
 
   const createInitialBands = (): BandModel[] => {
-    // const detailItems: ReportItemModel[] = [
-    //   {
-    //     id: "item-1",
-    //     type: "TextBox",
-    //     x: 40,
-    //     y: 20,
-    //     width: 200,
-    //     height: 40,
-    //     props: { text: "Sample Text" },
-    //     name: "Sample Text",
-    //   },
-    //   {
-    //     id: "item-2",
-    //     type: "Rectangle",
-    //     x: 40,
-    //     y: 80,
-    //     width: 300,
-    //     height: 60,
-    //     props: {},
-    //     name: "Rectangle 1",
-    //   },
-    //   {
-    //     id: "item-3",
-    //     type: "Table",
-    //     x: 350,
-    //     y: 40,
-    //     width: 300,
-    //     height: 120,
-    //     props: { rows: 3, columns: 3 },
-    //     name: "Table Test",
-    //   },
-    // ];
-
     const baseBands: {
       id: string;
       type: BandType;
@@ -392,17 +356,6 @@ const ReportDesigner = () => {
     commit(next);
   };
 
-  // const onItemTextCommit = (itemId: string, text: string) => {
-  //   const updated = present.map((band) => ({
-  //     ...band,
-  //     items: band.items.map((item) =>
-  //       item.id === itemId ? { ...item, text } : item,
-  //     ),
-  //   }));
-
-  //   commit(updated);
-  // };
-  //
   const onItemTextCommit = (itemId: string, text: string) => {
     const updated = present.map((band) => ({
       ...band,

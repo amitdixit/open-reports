@@ -429,19 +429,28 @@ const ReportSurface = ({
   return (
     <div className="flex-1 overflow-auto bg-gray-200 flex justify-center py-6">
       <div
-        className="bg-white shadow relative"
-        style={{ width: report.page.width, minHeight: report.page.height }}
-      >
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundSize: "8px 8px",
-            backgroundImage:
-              "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-          }}
-        />
+        className="shadow relative"
+        style={{
+          width: report.page.width,
+          minHeight: report.page.height,
+          backgroundColor: "#ffffff",
+          backgroundImage: `
+                  /* minor grid */
+                  linear-gradient(to right, rgba(0,0,0,0.035) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(0,0,0,0.035) 1px, transparent 1px),
 
+                  /* major grid (5 × 8px = 40px) */
+                  linear-gradient(to right, rgba(0,0,0,0.09) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(0,0,0,0.09) 1px, transparent 1px)
+                `,
+          backgroundSize: `
+                  8px 8px,
+                  8px 8px,
+                  40px 40px,
+                  40px 40px
+                `,
+        }}
+      >
         {/* Bands */}
         <div className="relative">
           {bands.map((band) => (

@@ -36,6 +36,8 @@ const Band = ({
   onGroupResizeStart?: (itemId: string, dir: "nw" | "ne" | "sw" | "se") => void;
   onItemTextCommit: (itemId: string, text: string) => void;
 }) => {
+  const isEmpty = band.items.length === 0;
+
   const containerUsage = new Set(
     band.items.filter((i) => i.containerId).map((i) => i.containerId),
   );
@@ -51,20 +53,41 @@ const Band = ({
       tabIndex={0}
       onClick={() => onBandSelect(band.id)}
       className={
-        "relative border-b outline-none " +
+        "relative border-b outline-none group " +
         (selectedBandId === band.id
-          ? "border-blue-400 bg-blue-100"
-          : "border-gray-300 bg-gray-50 hover:bg-blue-50")
+          ? "border-blue-400 bg-blue-100" // keep selected band solid
+          : isEmpty
+            ? "border-gray-200 bg-gradient-to-b from-white/60 to-gray-50/60 hover:from-gray-50/60"
+            : "border-gray-300 bg-gray-50/60 hover:bg-blue-50/60")
       }
       style={{ height: band.height }}
     >
       {/* Band header */}
-      <div className="h-6 px-2 flex items-center border-b border-gray-300 bg-gray-100 pointer-events-none">
-        <span className="text-xs font-semibold text-gray-600">{band.type}</span>
+      <div
+        className={
+          "h-6 px-2 flex items-center border-b pointer-events-none " +
+          (isEmpty
+            ? "border-gray-200 bg-gray-50"
+            : "border-gray-300 bg-gray-100")
+        }
+      >
+        <span
+          className={
+            "text-xs font-semibold " +
+            (isEmpty ? "text-gray-400" : "text-gray-600")
+          }
+        >
+          {band.type}
+        </span>
       </div>
 
       {/* Band content */}
-      <div className="absolute left-0 right-0 top-6 bottom-0 overflow-hidden">
+      <div
+        className={
+          "absolute left-0 right-0 overflow-hidden transition-all duration-150 " +
+          (isEmpty ? "top-6 h-6 opacity-40" : "top-6 bottom-0")
+        }
+      >
         {band.items
           .slice()
           .sort((a, b) => (a.type === "Rectangle" ? -1 : 1))
@@ -93,7 +116,16 @@ const Band = ({
           ))}
       </div>
 
-      <BandResizeHandle />
+      <div
+        className={
+          "transition-opacity duration-150 " +
+          (isEmpty
+            ? "opacity-0 group-hover:opacity-40"
+            : "opacity-0 group-hover:opacity-100")
+        }
+      >
+        <BandResizeHandle />
+      </div>
     </div>
   );
 };
