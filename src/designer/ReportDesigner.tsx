@@ -103,6 +103,11 @@ const ReportDesigner = () => {
   const onGroupDragCommit = (
     nextPositions: Record<string, { x: number; y: number }>,
   ) => {
+    console.log(
+      "[GROUP DRAG COMMIT]",
+      Object.keys(nextPositions),
+      nextPositions,
+    );
     const next = present.map((band) => ({
       ...band,
       items: band.items.map((item) =>
