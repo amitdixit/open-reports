@@ -1,11 +1,3 @@
-/**
- * reportModel
- * ----------------
- * Pure domain models for the Report Designer.
- * No React, no UI concerns.
- * Backend-friendly and serializable.
- */
-
 export type BandType =
   | "ReportHeader"
   | "PageHeader"

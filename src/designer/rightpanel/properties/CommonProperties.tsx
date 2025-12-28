@@ -1,5 +1,4 @@
 import { type ReportItemModel } from "../../state/reportModel";
-import { Input } from "../controls/Input";
 
 const GRID_SIZE = 8;
 const MIN_WIDTH = 24;
@@ -35,38 +34,67 @@ const CommonProperties = ({
   };
 
   return (
-    <div className="space-y-4">
-      <Input
-        label="X"
-        value={local.x}
-        onChange={(v) => setLocal({ ...local, x: v })}
-        onBlur={commitGeometry}
-        onKeyDown={onKeyDown}
-      />
+    <div className="space-y-3">
+      {/* Layout (Pixels) */}
+      <div>
+        <div className="text-[10px] font-semibold uppercase text-gray-400 mb-2">
+          Layout (Pixels)
+        </div>
 
-      <Input
-        label="Y"
-        value={local.y}
-        onChange={(v) => setLocal({ ...local, y: v })}
-        onBlur={commitGeometry}
-        onKeyDown={onKeyDown}
-      />
+        <div className="grid grid-cols-2 gap-3">
+          {/* Left */}
+          <label className="block">
+            <span className="text-[10px] text-gray-500">Left</span>
+            <input
+              type="number"
+              value={local.x}
+              onChange={(e) => setLocal({ ...local, x: e.target.value })}
+              onBlur={commitGeometry}
+              onKeyDown={onKeyDown}
+              className="mt-1 block w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md"
+            />
+          </label>
 
-      <Input
-        label="Width"
-        value={local.width}
-        onChange={(v) => setLocal({ ...local, width: v })}
-        onBlur={commitGeometry}
-        onKeyDown={onKeyDown}
-      />
+          {/* Top */}
+          <label className="block">
+            <span className="text-[10px] text-gray-500">Top</span>
+            <input
+              type="number"
+              value={local.y}
+              onChange={(e) => setLocal({ ...local, y: e.target.value })}
+              onBlur={commitGeometry}
+              onKeyDown={onKeyDown}
+              className="mt-1 w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md"
+            />
+          </label>
 
-      <Input
-        label="Height"
-        value={local.height}
-        onChange={(v) => setLocal({ ...local, height: v })}
-        onBlur={commitGeometry}
-        onKeyDown={onKeyDown}
-      />
+          {/* Width */}
+          <label className="block">
+            <span className="text-[10px] text-gray-500">Width</span>
+            <input
+              type="number"
+              value={local.width}
+              onChange={(e) => setLocal({ ...local, width: e.target.value })}
+              onBlur={commitGeometry}
+              onKeyDown={onKeyDown}
+              className="mt-1 w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md"
+            />
+          </label>
+
+          {/* Height */}
+          <label className="block">
+            <span className="text-[10px] text-gray-500">Height</span>
+            <input
+              type="number"
+              value={local.height}
+              onChange={(e) => setLocal({ ...local, height: e.target.value })}
+              onBlur={commitGeometry}
+              onKeyDown={onKeyDown}
+              className="mt-1 w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md"
+            />
+          </label>
+        </div>
+      </div>
     </div>
   );
 };

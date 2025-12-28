@@ -1,5 +1,4 @@
 import { type ReportItemModel } from "../../state/reportModel";
-import { Input } from "../controls/Input";
 
 const TableProperties = ({
   item,
@@ -10,36 +9,49 @@ const TableProperties = ({
 }) => {
   if (item.type !== "Table") return null;
 
-  const rows = String(item.props?.rows ?? 3);
-  const columns = String(item.props?.columns ?? 3);
+  const props = item.props ?? {};
 
   return (
-    <div className="space-y-4">
-      <Input
-        label="Rows"
-        value={rows}
-        onChange={(v) =>
-          onCommit(item.id, {
-            props: {
-              ...item.props,
-              rows: Math.max(1, Number(v) || 1),
-            },
-          })
-        }
-      />
+    <div>
+      <h4 className="text-[10px] font-bold uppercase text-gray-400 border-b pb-1 mb-3">
+        Table
+      </h4>
 
-      <Input
-        label="Columns"
-        value={columns}
-        onChange={(v) =>
-          onCommit(item.id, {
-            props: {
-              ...item.props,
-              columns: Math.max(1, Number(v) || 1),
-            },
-          })
-        }
-      />
+      <div className="grid grid-cols-2 gap-3">
+        <label className="block">
+          <span className="text-[10px] text-gray-500">Rows</span>
+          <input
+            type="number"
+            value={props.rows ?? 3}
+            onChange={(e) =>
+              onCommit(item.id, {
+                props: {
+                  ...props,
+                  rows: Math.max(1, Number(e.target.value) || 1),
+                },
+              })
+            }
+            className="mt-1 w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-[10px] text-gray-500">Columns</span>
+          <input
+            type="number"
+            value={props.columns ?? 3}
+            onChange={(e) =>
+              onCommit(item.id, {
+                props: {
+                  ...props,
+                  columns: Math.max(1, Number(e.target.value) || 1),
+                },
+              })
+            }
+            className="mt-1 w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md"
+          />
+        </label>
+      </div>
     </div>
   );
 };

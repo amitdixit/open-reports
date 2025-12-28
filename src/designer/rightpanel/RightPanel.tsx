@@ -11,7 +11,6 @@ import PropertyGroup from "./properties/PropertyGroup";
 import TableHeaderProperties from "./properties/TableHeaderProperties";
 import TableBodyProperties from "./properties/TableBodyProperties";
 import TableFooterProperties from "./properties/TableFooterProperties";
-import { Input } from "./controls/Input";
 
 const GRID_SIZE = 8;
 const MIN_WIDTH = 24;
@@ -192,18 +191,28 @@ const RightPanel = ({
       </div>
 
       {/* Content */}
-      <div className="flex-1 p-3 text-sm overflow-auto">
+      <div className="flex-1 p-3 text-[12px] overflow-auto text-gray-800">
         {activeTab === "properties" && (
           <>
             {!selectedItem || !local ? (
-              <div className="text-gray-500">No item selected</div>
+              <div className="text-xs text-gray-400 italic select-none">
+                No item selected
+              </div>
             ) : (
               <>
-                <Input
-                  label="Name"
-                  value={selectedItem.name ?? ""}
-                  onChange={(v) => onCommit(selectedItem.id, { name: v })}
-                />
+                <div className="space-y-3">
+                  <label className="block">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase">
+                      Name
+                    </span>
+                    <input
+                      type="text"
+                      value={selectedItem.name ?? ""}
+                      onChange={(v) => onCommit(selectedItem.id, { name: v })}
+                      className="mt-1 block w-full px-3 py-1.5 text-xs border border-slate-200 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-slate-50"
+                    />
+                  </label>
+                </div>
                 {renderTypeProperties()}
               </>
             )}

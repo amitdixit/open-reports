@@ -104,7 +104,7 @@ const ReportSurface = ({
 
   const isGroupResizing = Boolean(groupResizeStartRef.current);
 
-  const handleGroupResizeStart = (itemId: string, dir: ResizeDir) => {
+  const handleGroupResizeStart = (_itemId: string, dir: ResizeDir) => {
     if (selectedItemIds.length <= 1) return;
 
     const items: Record<

@@ -1,6 +1,4 @@
 import { type ReportItemModel } from "../../state/reportModel";
-import { Input } from "../controls/Input";
-import SelectInput from "../controls/SelectInput";
 
 const ImageProperties = ({
   item,
@@ -10,44 +8,54 @@ const ImageProperties = ({
   onCommit: (itemId: string, next: Partial<ReportItemModel>) => void;
 }) => {
   if (item.type !== "Image") return null;
-  //https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg
-  const src = item.props?.src ?? "";
+
+  const props = item.props ?? {};
 
   return (
     <div className="space-y-4">
-      <Input
-        label="Source"
-        value={src}
-        onChange={(v) =>
-          onCommit(item.id, {
-            props: {
-              ...item.props,
-              src: v,
-            },
-          })
-        }
-      />
-      <div className="text-xs text-gray-400 ml-20">
-        Paste image URL or bind at runtime
-      </div>
-
-      <div>
-        <div className="text-xs font-medium text-gray-600 mb-1">Fit</div>
-        <SelectInput
-          label="Fit"
-          value={item.props.fit ?? "contain"}
-          options={[
-            { label: "Contain", value: "contain" },
-            { label: "Cover", value: "cover" },
-            { label: "Stretch", value: "stretch" },
-          ]}
-          onChange={(v) =>
+      <label className="block">
+        <span className="text-[10px] text-gray-500">Source</span>
+        <input
+          type="text"
+          value={props.src ?? ""}
+          onChange={(e) =>
             onCommit(item.id, {
-              props: { ...item.props, fit: v },
+              props: {
+                ...props,
+                src: e.target.value,
+              },
             })
           }
+          className="mt-1 w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md"
         />
-        <div className="text-xs text-gray-400 ml-20 space-y-0.5">
+        <div className="mt-1 text-[11px] text-gray-400">
+          Paste image URL or bind at runtime
+        </div>
+      </label>
+
+      <div>
+        <h4 className="text-[10px] font-bold uppercase text-gray-400 border-b pb-1 mb-3">
+          Fit
+        </h4>
+
+        <label className="block">
+          <span className="text-[10px] text-gray-500">Mode</span>
+          <select
+            value={props.fit ?? "contain"}
+            onChange={(e) =>
+              onCommit(item.id, {
+                props: { ...props, fit: e.target.value },
+              })
+            }
+            className="mt-1 w-full px-3 py-1.5 text-xs border border-gray-300 rounded-md bg-white"
+          >
+            <option value="contain">Contain</option>
+            <option value="cover">Cover</option>
+            <option value="stretch">Stretch</option>
+          </select>
+        </label>
+
+        <div className="mt-2 text-[11px] text-gray-400 space-y-0.5">
           <div>Contain: keep aspect ratio, may leave empty space</div>
           <div>Cover: fill box, may crop image</div>
           <div>Stretch: ignore aspect ratio</div>

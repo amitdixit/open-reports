@@ -4,7 +4,7 @@ const TableFooterProperties = ({ item }: { item: ReportItemModel }) => {
   if (item.type !== "Table") return null;
 
   return (
-    <div className="text-xs text-gray-400">
+    <div className="text-[11px] text-gray-400">
       Footer properties will be available in a future phase.
     </div>
   );

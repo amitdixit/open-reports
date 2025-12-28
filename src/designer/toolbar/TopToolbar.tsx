@@ -27,23 +27,26 @@ const TopToolbar = ({
   onDistributeHorizontal: () => void;
   onDistributeVertical: () => void;
 }) => {
+  const toolBtn =
+    "h-8 w-8 flex items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed";
+
   return (
     <div className="h-12 flex items-center gap-2 px-3 border-b bg-white">
       {/* File actions */}
-      <button className="px-3 py-1 text-sm rounded hover:bg-gray-100">
+      <button className="px-3 py-1.5 text-xs rounded-md text-slate-600 hover:bg-slate-100">
         New
       </button>
-      <button className="px-3 py-1 text-sm rounded hover:bg-gray-100">
+      <button className="px-3 py-1.5 text-xs rounded-md text-slate-600 hover:bg-slate-100">
         Open
       </button>
-      <button className="px-3 py-1 text-sm rounded hover:bg-gray-100">
+      <button className="px-3 py-1.5 text-xs rounded-md text-slate-600 hover:bg-slate-100">
         Save
       </button>
 
       <span className="mx-2 h-6 border-l" />
 
       {/* Edit actions */}
-      <button
+      {/*<button
         onClick={onUndo}
         disabled={!canUndo}
         className={`px-3 py-1 text-sm rounded ${
@@ -51,8 +54,16 @@ const TopToolbar = ({
         }`}
       >
         Undo
-      </button>
+      </button>*/}
       <button
+        onClick={onUndo}
+        disabled={!canUndo}
+        title="Undo"
+        className={toolBtn}
+      >
+        ↶
+      </button>
+      {/*<button
         onClick={onRedo}
         disabled={!canRedo}
         className={`px-3 py-1 text-sm rounded ${
@@ -60,56 +71,46 @@ const TopToolbar = ({
         }`}
       >
         Redo
-      </button>
-      <span className="mx-2 h-6 border-l" />
+      </button>*/}
 
       <button
-        className="px-2 py-1 text-sm rounded hover:bg-gray-100"
-        title="Align Left"
-        onClick={onAlignLeft}
+        onClick={onRedo}
+        disabled={!canRedo}
+        title="Redo"
+        className={toolBtn}
       >
+        ↷
+      </button>
+
+      <span className="mx-2 h-6 border-l" />
+
+      <button className={toolBtn} title="Align Left" onClick={onAlignLeft}>
         ⬅
       </button>
-      <button
-        className="px-2 py-1 text-sm rounded hover:bg-gray-100"
-        title="Align Center"
-        onClick={onAlignCenter}
-      >
+      <button className={toolBtn} title="Align Center" onClick={onAlignCenter}>
         ↔
       </button>
-      <button
-        className="px-2 py-1 text-sm rounded hover:bg-gray-100"
-        title="Align Right"
-        onClick={onAlignRight}
-      >
+      <button className={toolBtn} title="Align Right" onClick={onAlignRight}>
         ➡
       </button>
-      <button
-        className="px-2 py-1 text-sm rounded hover:bg-gray-100"
-        title="Align Top"
-        onClick={onAlignTop}
-      >
+      <button className={toolBtn} title="Align Top" onClick={onAlignTop}>
         ⬆
       </button>
       <button
         onClick={onAlignMiddle}
-        className="px-2 py-1 text-sm rounded hover:bg-gray-100"
+        className={toolBtn}
         title="Align Vertical Center"
       >
         ↕
       </button>
 
-      <button
-        onClick={onAlignBottom}
-        className="px-2 py-1 text-sm rounded hover:bg-gray-100"
-        title="Align Bottom"
-      >
+      <button onClick={onAlignBottom} className={toolBtn} title="Align Bottom">
         ⬇
       </button>
 
       <button
         onClick={onDistributeHorizontal}
-        className="px-2 py-1 text-sm rounded hover:bg-gray-100"
+        className={toolBtn}
         title="Distribute Horizontally"
       >
         ⇤⇥
@@ -117,7 +118,7 @@ const TopToolbar = ({
 
       <button
         onClick={onDistributeVertical}
-        className="px-2 py-1 text-sm rounded hover:bg-gray-100"
+        className={toolBtn}
         title="Distribute Vertically"
       >
         ⇧⇩
@@ -125,7 +126,7 @@ const TopToolbar = ({
 
       <button
         onClick={onDelete}
-        className="px-3 py-1 text-sm rounded text-red-600 hover:bg-red-50"
+        className="px-3 py-1.5 text-xs rounded-md text-red-600 hover:bg-red-50"
       >
         Delete
       </button>
