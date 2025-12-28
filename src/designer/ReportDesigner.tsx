@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import TopToolbar from "./toolbar/TopToolbar";
-import LeftPalette from "./palette/LeftPalette";
+import LeftPalette from "./leftpanel/LeftPalette";
 import ReportSurface from "./surface/ReportSurface";
 import RightPanel from "./rightpanel/RightPanel";
 
