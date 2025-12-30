@@ -5,6 +5,7 @@ namespace ReportServer.Execution;
 public sealed class ReportExecutionContext
 {
     private readonly Dictionary<string, DatasetResult> _datasets = [];
+    public IReadOnlyDictionary<string, DatasetResult> Datasets => _datasets;
     public Guid ExecutionId { get; } = Guid.NewGuid();
 
     public ReportDefinition Report { get; }
