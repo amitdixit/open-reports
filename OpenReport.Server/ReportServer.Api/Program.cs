@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using ReportServer.Api.Contracts;
 using ReportServer.Core.Items;
 using ReportServer.Core.Layout;
 using ReportServer.Core.Reports;
@@ -7,6 +8,8 @@ using ReportServer.Infrastructure.DataSources;
 using ReportServer.Infrastructure.Execution;
 using ReportServer.Infrastructure.Persistence;
 using ReportServer.Rendering;
+using ReportServer.Rendering.Excel;
+using ReportServer.Rendering.Pdf;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,14 +21,20 @@ builder.Services.AddDbContext<ReportDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ReportDb"));
 });
 
+builder.Services.AddScoped<IReportRenderer, ReportRenderer>();
+builder.Services.AddScoped<RenderPipeline>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IReportExecutor, ReportExecutor>();
 builder.Services.AddScoped<IDatasetExecutor, DatasetExecutor>();
+builder.Services.AddScoped<ReportRenderer>();
+builder.Services.AddScoped<PaginationEngine>();
 builder.Services.AddScoped<IDatasourceResolver, PostgresDatasourceResolver>();
 builder.Services.AddScoped<ISqlQueryExecutor, PostgresSqlQueryExecutor>();
 builder.Services.AddScoped<IDatasetExecutor, DatasetExecutor>();
 builder.Services.AddSingleton(new ExecutionLimits { CommandTimeoutSeconds = 30, MaxRows = 100_000 });
-builder.Services.AddScoped<IReportRenderer, ReportRenderer>();
+builder.Services.AddScoped<IExcelExporter, ClosedXmlExcelExporter>();
+builder.Services.AddScoped<IPdfExporter, QuestPdfExporter>();
+
 
 
 var app = builder.Build();
@@ -87,6 +96,7 @@ app.MapGet("/weatherforecast", async (IReportRepository repo) =>
 
 
 
+
     await repo.SaveAsync(report, CancellationToken.None);
 
     var loaded = await repo.GetAsync(report.ReportId, CancellationToken.None);
@@ -105,6 +115,65 @@ app.MapGet("/weatherforecast", async (IReportRepository repo) =>
     return Results.Ok();
 })
 .WithName("GetWeatherForecast");
+
+
+
+app.MapPost(
+    "/api/reports/{reportId:guid}/render",
+    async (
+        Guid reportId,
+        string format,
+        RenderReportRequest request,
+        IReportRepository reportRepository,
+        IReportExecutor reportExecutor,
+        RenderPipeline renderPipeline,
+        IPdfExporter pdfExporter,
+        IExcelExporter excelExporter,
+        CancellationToken ct) =>
+    {
+        // 1. Load report
+        var report = await reportRepository.GetAsync(reportId, ct);
+
+        // 2. Execute
+        var executionContext = await reportExecutor.ExecuteAsync(
+            report,
+            request.Parameters,
+            ct);
+
+        // 3. Render (renderer + pagination handled internally)
+        var document = renderPipeline.Render(executionContext);
+
+        // 4. Export
+        byte[] output;
+        string contentType;
+        string fileName;
+
+        switch (format.ToLowerInvariant())
+        {
+            case "pdf":
+                output = pdfExporter.Export(document);
+                contentType = "application/pdf";
+                fileName = $"{report.Name}.pdf";
+                break;
+
+            case "excel":
+                output = excelExporter.Export(document);
+                contentType =
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                fileName = $"{report.Name}.xlsx";
+                break;
+
+            default:
+                return Results.BadRequest("Unsupported format.");
+        }
+
+        return Results.File(output, contentType, fileName);
+    });
+
+
+
+
+
 
 await app.RunAsync();
 

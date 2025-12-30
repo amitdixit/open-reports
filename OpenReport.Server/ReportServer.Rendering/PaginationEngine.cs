@@ -3,9 +3,7 @@ using ReportServer.Rendering;
 
 public sealed class PaginationEngine
 {
-    public RenderDocument Paginate(
-        PageDefinition page,
-        IReadOnlyList<RenderNode> nodes)
+    public RenderDocument Paginate(PageDefinition page, IReadOnlyList<RenderNode> nodes)
     {
         var reportHeader = nodes.Where(n => n.BandRole == RenderBandRole.ReportHeader).ToList();
         var pageHeader = nodes.Where(n => n.BandRole == RenderBandRole.PageHeader).ToList();
@@ -58,9 +56,7 @@ public sealed class PaginationEngine
         return new RenderDocument(pages);
     }
 
-    private static IEnumerable<RenderNode> ShiftY(
-        IEnumerable<RenderNode> nodes,
-        double startY)
+    private static IEnumerable<RenderNode> ShiftY(IEnumerable<RenderNode> nodes, double startY)
     {
         var y = startY;
         foreach (var n in nodes)

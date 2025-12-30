@@ -5,6 +5,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="ClosedXML" />
+	  <PackageReference Include="QuestPDF" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\ReportServer.Execution\ReportServer.Execution.csproj" />
 	</ItemGroup>
 
