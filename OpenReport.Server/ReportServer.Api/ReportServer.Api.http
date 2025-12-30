@@ -1,0 +1,6 @@
+@OpenReport.Server_HostAddress = http://localhost:5273
+
+GET {{OpenReport.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

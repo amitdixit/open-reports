@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="ReportServer.Api/ReportServer.Api.csproj" />
+  <Project Path="ReportServer.Core/ReportServer.Core.csproj" />
+  <Project Path="ReportServer.Execution/ReportServer.Execution.csproj" />
+  <Project Path="ReportServer.Infrastructure/ReportServer.Infrastructure.csproj" />
+  <Project Path="ReportServer.Rendering/ReportServer.Rendering.csproj" />
+</Solution>
