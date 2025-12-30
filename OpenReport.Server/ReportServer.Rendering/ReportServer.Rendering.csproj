@@ -4,4 +4,8 @@
 		
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\ReportServer.Execution\ReportServer.Execution.csproj" />
+	</ItemGroup>
+
 </Project>

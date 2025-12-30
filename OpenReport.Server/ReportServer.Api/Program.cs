@@ -6,6 +6,7 @@ using ReportServer.Execution;
 using ReportServer.Infrastructure.DataSources;
 using ReportServer.Infrastructure.Execution;
 using ReportServer.Infrastructure.Persistence;
+using ReportServer.Rendering;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<ReportDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ReportDb")));
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ReportDb"));
+});
 
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IReportExecutor, ReportExecutor>();
@@ -21,11 +24,8 @@ builder.Services.AddScoped<IDatasetExecutor, DatasetExecutor>();
 builder.Services.AddScoped<IDatasourceResolver, PostgresDatasourceResolver>();
 builder.Services.AddScoped<ISqlQueryExecutor, PostgresSqlQueryExecutor>();
 builder.Services.AddScoped<IDatasetExecutor, DatasetExecutor>();
-builder.Services.AddSingleton(new ExecutionLimits
-{
-    CommandTimeoutSeconds = 30,
-    MaxRows = 100_000
-});
+builder.Services.AddSingleton(new ExecutionLimits { CommandTimeoutSeconds = 30, MaxRows = 100_000 });
+builder.Services.AddScoped<IReportRenderer, ReportRenderer>();
 
 
 var app = builder.Build();

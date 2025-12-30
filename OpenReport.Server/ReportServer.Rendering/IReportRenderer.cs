@@ -1,9 +1,8 @@
-﻿namespace ReportServer.Rendering;
+﻿using ReportServer.Execution;
+
+namespace ReportServer.Rendering;
 
 public interface IReportRenderer
 {
-}
-
-public interface IRenderExporter
-{
+    RenderDocument Render(ReportExecutionContext context);
 }
